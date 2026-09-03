@@ -24,7 +24,7 @@ export default function Gallery() {
   useEffect(() => {
     const isDesktop = window.innerWidth >= 768;
     
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       if (isDesktop && containerRef.current && sliderRef.current) {
         const scrollWidth = sliderRef.current.scrollWidth - window.innerWidth;
         

@@ -20,10 +20,13 @@ export default function TransformationSequence() {
 
   useEffect(() => {
     // Check for prefers-reduced-motion
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReducedMotion(mediaQuery.matches);
+    const checkReducedMotion = () => {
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      setReducedMotion(mediaQuery.matches);
+      return mediaQuery.matches;
+    };
     
-    if (mediaQuery.matches || !containerRef.current || !canvasRef.current) return;
+    if (checkReducedMotion() || !containerRef.current || !canvasRef.current) return;
 
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");

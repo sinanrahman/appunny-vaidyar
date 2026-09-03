@@ -42,7 +42,7 @@ export default function Approach() {
     // Only pin on desktop
     const isDesktop = window.innerWidth >= 768;
     
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       if (isDesktop && containerRef.current && leftColRef.current && rightColRef.current) {
         ScrollTrigger.create({
           trigger: containerRef.current,
@@ -86,7 +86,7 @@ export default function Approach() {
         >
           <Heading level={2} className="mb-8">A Complete Approach to Healing.</Heading>
           <p className="font-secondary text-lg md:text-xl text-black/80 max-w-md">
-            Every journey begins with attentive consultation. Care is then personalized through traditional therapies, natural preparations and practical guidance suited to the individual's condition and way of life.
+            Every journey begins with attentive consultation. Care is then personalized through traditional therapies, natural preparations and practical guidance suited to the individual&apos;s condition and way of life.
           </p>
         </div>
 

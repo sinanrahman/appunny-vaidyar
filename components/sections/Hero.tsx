@@ -70,7 +70,6 @@ export default function Hero() {
           sizes="100vw"
           priority
           className="object-cover"
-          sizes="100vw"
         />
         {/* Dark gradient overlay for text legibility */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
