@@ -1,0 +1,6 @@
+export const env = {
+  GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY || "",
+  GOOGLE_PLACE_ID: process.env.GOOGLE_PLACE_ID || "",
+  NEXT_PUBLIC_GOOGLE_MAPS_URL: process.env.NEXT_PUBLIC_GOOGLE_MAPS_URL || "",
+  APPOINTMENT_RECIPIENT_EMAIL: process.env.APPOINTMENT_RECIPIENT_EMAIL || "",
+};
