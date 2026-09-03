@@ -52,7 +52,7 @@ export default function Approach() {
           pinSpacing: false,
         });
 
-        cardsRef.current.forEach((card, index) => {
+        cardsRef.current.forEach((card) => {
           if (!card) return;
           gsap.fromTo(
             card,
@@ -91,7 +91,7 @@ export default function Approach() {
         </div>
 
         {/* Right Column - Scrolling Cards */}
-        <div ref={rightColRef} className="w-full md:w-7/12 flex flex-col gap-12 md:gap-32 py-10 md:py-[50vh]">
+        <div ref={rightColRef} className="w-full md:w-7/12 flex flex-col gap-12 md:gap-16 py-10 md:py-32">
           {features.map((feature, index) => (
             <div 
               key={index} 

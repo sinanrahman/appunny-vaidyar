@@ -55,7 +55,7 @@ export default function GoogleReviews() {
         } else {
           setData(json);
         }
-      } catch (err) {
+      } catch {
         setError(true);
       } finally {
         setLoading(false);
@@ -76,29 +76,28 @@ export default function GoogleReviews() {
     }
   };
 
+  // Default clinic maps link if API fails
+  const fallbackMapsLink = "https://www.google.com/maps/search/?api=1&query=Appunni+Vaidyar+Parvathy+Ayurjeeva+Panchakarma+Chikitsalaya+Bangalore";
+
   if (loading) {
     return (
-      <Section className="bg-[#FAF9F6]">
-        <div className="max-w-[1600px] mx-auto">
-          <Heading level={2} className="mb-16">What Our Patients Share</Heading>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 opacity-50 animate-pulse">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-white p-8 rounded-2xl h-64 shadow-sm" />
-            ))}
-          </div>
+      <Section className="bg-[#FAF9F6] min-h-[400px] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4 opacity-50">
+          <div className="w-8 h-8 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+          <p className="font-secondary text-sm tracking-widest uppercase">Loading Reviews...</p>
         </div>
       </Section>
     );
   }
 
-  if (error || !data || !data.reviews) {
+  if (error || !data || !data.reviews || data.reviews.length === 0) {
     return (
       <Section className="bg-[#FAF9F6] text-center py-32">
         <Heading level={3} className="mb-6">Patient Experiences</Heading>
         <p className="font-secondary text-black/70 mb-8 max-w-xl mx-auto">
-          Read authentic reviews from our patients directly on Google Maps.
+          Read authentic experiences and reviews from our patients directly on Google Maps.
         </p>
-        <Button href={data?.googleMapsUri || "https://maps.google.com"} external variant="outline">
+        <Button href={data?.googleMapsUri || fallbackMapsLink} external variant="outline" className="border-black/20">
           View on Google Maps
         </Button>
       </Section>

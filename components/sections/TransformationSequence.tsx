@@ -1,135 +1,111 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Heading from "../ui/Heading";
-import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function TransformationSequence() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const textRef1 = useRef<HTMLDivElement>(null);
-  const textRef2 = useRef<HTMLDivElement>(null);
-  const textRef3 = useRef<HTMLDivElement>(null);
+  const textRefs = useRef<(HTMLDivElement | null)[]>([]);
   
-  const [reducedMotion, setReducedMotion] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    // Check for prefers-reduced-motion
-    const checkReducedMotion = () => {
-      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-      setReducedMotion(mediaQuery.matches);
-      return mediaQuery.matches;
-    };
-    
-    if (checkReducedMotion() || !containerRef.current || !canvasRef.current) return;
+    if (reducedMotion || !containerRef.current) return;
 
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    const ctx = gsap.context(() => {
+      // Animate text overlays sequentially
+      textRefs.current.forEach((text, i) => {
+        if (!text) return;
+        const total = textRefs.current.length;
+        const startPercent = (i / total) * 100;
+        const endPercent = ((i + 1) / total) * 100;
 
-    // We mock the frame count based on desktop/mobile
-    const isMobile = window.innerWidth < 768;
-    const frameCount = isMobile ? 60 : 120;
-    const images: HTMLImageElement[] = [];
-    const imageSequence = { frame: 0 };
-    
-    // Instead of loading actual non-existent frames which would cause 404s, 
-    // we'll draw a placeholder effect or use the fallback image if frames fail to load.
-    // In a real scenario with frames: 
-    // const currentFrame = (index: number) => `/sequence/${isMobile ? 'mobile' : 'desktop'}/frame_${String(index + 1).padStart(4, '0')}.webp`;
-    
-    // Mock rendering for development: just draw the fallback image for now to avoid 404s.
-    const render = () => {
-      // Clear and draw fallback if no sequence available
-      // ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // Real render logic would draw images[imageSequence.frame]
-    };
-
-    gsap.to(imageSequence, {
-      frame: frameCount - 1,
-      snap: "frame",
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom bottom",
-        scrub: 1,
-      },
-      onUpdate: render,
-    });
-
-    // Animate text overlays
-    const texts = [textRef1.current, textRef2.current, textRef3.current];
-    texts.forEach((text, i) => {
-      if (!text) return;
-      gsap.fromTo(
-        text,
-        { opacity: 0, y: 50 },
-        {
-          opacity: 1,
-          y: 0,
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: `${25 * (i + 1)}% center`,
-            end: `${25 * (i + 1) + 15}% center`,
-            scrub: true,
-          },
+        gsap.fromTo(
+          text,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: `${startPercent}% center`,
+              end: `${startPercent + 15}% center`,
+              scrub: true,
+            },
+          }
+        );
+        
+        // Fade out except the last one
+        if (i < total - 1) {
+          gsap.to(text, {
+            opacity: 0,
+            y: -30,
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: `${endPercent - 15}% center`,
+              end: `${endPercent}% center`,
+              scrub: true,
+            },
+          });
         }
-      );
+      });
     });
 
-  }, []);
+    return () => ctx.revert();
+  }, [reducedMotion]);
 
   if (reducedMotion) {
     return (
-      <section className="relative w-full h-[100svh] bg-black text-warm flex items-center justify-center">
-        <Image src="/images/01_hero_reference.png" alt="Return to Balance" fill sizes="100vw" className="object-cover opacity-50" />
-        <div className="relative z-10 text-center">
-          <Heading level={2}>Return to Balance.</Heading>
+      <section className="relative w-full py-32 bg-primary text-warm flex flex-col items-center justify-center gap-12">
+        <Image src="/images/10_product_packaging_mockup.png" alt="Ayurvedic Preparation" width={600} height={400} className="object-cover rounded-2xl opacity-60" />
+        <div className="relative z-10 text-center max-w-4xl px-6">
+          <Heading level={2} className="mb-6">Understand the individual.</Heading>
+          <Heading level={2} className="mb-6 text-warm/70">Restore the natural rhythm.</Heading>
+          <Heading level={2} className="text-warm/40">Support lasting wellness.</Heading>
         </div>
       </section>
     );
   }
 
   return (
-    <section ref={containerRef} className="relative h-[300vh] bg-black">
+    <section ref={containerRef} className="relative h-[200vh] bg-primary">
       <div className="sticky top-0 h-[100svh] w-full overflow-hidden flex items-center justify-center">
-        {/* Fallback image shown behind canvas or when canvas is empty */}
-        <div className="absolute inset-0 z-0">
+        
+        {/* Ambient background visuals */}
+        <div className="absolute inset-0 z-0 opacity-20 mix-blend-overlay">
           <Image 
-            src="/images/01_hero_reference.png" 
-            alt="Transformation" 
+            src="/images/10_product_packaging_mockup.png" 
+            alt="Ayurvedic Preparation" 
             fill
             sizes="100vw"
-            className="object-cover opacity-40" 
+            className="object-cover" 
           />
         </div>
         
-        <canvas 
-          ref={canvasRef} 
-          className="absolute inset-0 w-full h-full object-cover z-10"
-        />
+        {/* Soft lighting overlay to focus the center stone */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(5,104,57,0.9)_70%)] z-10 pointer-events-none" />
 
         {/* Text Overlays */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-4">
-          <div className="absolute inset-0 flex items-center justify-center" ref={textRef1}>
+          <div className="absolute inset-0 flex items-center justify-center" ref={(el) => { textRefs.current[0] = el; }}>
             <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
               Understand the individual.
             </Heading>
           </div>
           
-          <div className="absolute inset-0 flex items-center justify-center opacity-0" ref={textRef2}>
+          <div className="absolute inset-0 flex items-center justify-center opacity-0" ref={(el) => { textRefs.current[1] = el; }}>
             <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
               Restore the natural rhythm.
             </Heading>
           </div>
           
-          <div className="absolute inset-0 flex items-center justify-center opacity-0" ref={textRef3}>
+          <div className="absolute inset-0 flex items-center justify-center opacity-0" ref={(el) => { textRefs.current[2] = el; }}>
             <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
               Support lasting wellness.
             </Heading>

@@ -1,4 +1,5 @@
 import Hero from "@/components/sections/Hero";
+import StoryWrapper from "@/components/sections/StoryWrapper";
 import ProblemStory from "@/components/sections/ProblemStory";
 import TransformationSequence from "@/components/sections/TransformationSequence";
 import Approach from "@/components/sections/Approach";
@@ -12,16 +13,18 @@ import JournalPreview from "@/components/sections/JournalPreview";
 export default function Home() {
   return (
     <>
-      <Hero />
-      <ProblemStory />
-      <TransformationSequence />
-      <Approach />
-      <Treatments />
+      <StoryWrapper>
+        <Hero />
+        <ProblemStory />
+        <TransformationSequence />
+        <Approach />
+      </StoryWrapper>
       <Heritage />
+      <Treatments />
       <Gallery />
       <GoogleTestimonials />
-      <ConsultationCTA />
       <JournalPreview />
+      <ConsultationCTA />
     </>
   );
 }

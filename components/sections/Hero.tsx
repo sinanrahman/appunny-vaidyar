@@ -16,50 +16,49 @@ export default function Hero() {
   useEffect(() => {
     if (!containerRef.current || !imageRef.current || !textRef.current) return;
 
-    // Simple word splitter fallback (since SplitText is paid)
-    const headings = textRef.current.querySelectorAll("h1 > span.line");
-    
-    // Scale animation
-    gsap.to(imageRef.current, {
-      scale: 1.04,
-      duration: 10,
-      ease: "none",
-      repeat: -1,
-      yoyo: true
+    const ctx = gsap.context(() => {
+      const headings = textRef.current!.querySelectorAll("h1 > span.line");
+      
+      gsap.to(imageRef.current, {
+        scale: 1.04,
+        duration: 10,
+        ease: "none",
+        repeat: -1,
+        yoyo: true
+      });
+
+      gsap.to(imageRef.current, {
+        yPercent: 15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+
+      gsap.fromTo(
+        headings,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power2.out", delay: 0.5 }
+      );
+      
+      const pAndBtns = textRef.current!.querySelectorAll(".reveal-up");
+      gsap.fromTo(
+        pAndBtns,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power2.out", delay: 1 }
+      );
     });
 
-    // Parallax
-    gsap.to(imageRef.current, {
-      yPercent: 15,
-      ease: "none",
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
-
-    // Text Reveal
-    gsap.fromTo(
-      headings,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power2.out", delay: 0.5 }
-    );
-    
-    const pAndBtns = textRef.current.querySelectorAll(".reveal-up");
-    gsap.fromTo(
-      pAndBtns,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power2.out", delay: 1 }
-    );
-
+    return () => ctx.revert();
   }, []);
 
   return (
     <section 
       ref={containerRef} 
-      className="relative w-full h-[100svh] min-h-[600px] flex items-end pb-24 md:pb-32 overflow-hidden bg-black text-warm"
+      className="relative w-full h-[100svh] min-h-[700px] flex items-center pb-20 pt-32 overflow-hidden bg-black text-warm"
     >
       <div className="absolute inset-0 z-0">
         <Image
@@ -71,19 +70,18 @@ export default function Hero() {
           priority
           className="object-cover"
         />
-        {/* Dark gradient overlay for text legibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-[clamp(20px,4vw,72px)]">
-        <div ref={textRef} className="max-w-4xl">
-          <h1 className="font-primary font-medium tracking-tight text-[clamp(3.25rem,7.5vw,8.5rem)] leading-[0.9] mb-8">
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-[clamp(20px,4vw,72px)] flex flex-col justify-center h-full mt-24">
+        <div ref={textRef} className="w-full md:w-7/12 xl:w-1/2">
+          <h1 className="font-primary font-medium tracking-tight text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.9] mb-8">
             <span className="line block">Ayurveda, Rooted</span>
             <span className="line block">in Tradition.</span>
-            <span className="line block text-warm/70">Healing, Made Personal.</span>
+            <span className="line block text-warm/70 mt-2">Healing, Made Personal.</span>
           </h1>
           
-          <p className="reveal-up font-secondary text-lg md:text-xl max-w-2xl mb-10 text-warm/90">
+          <p className="reveal-up font-secondary text-lg md:text-xl max-w-lg mb-10 text-warm/90 leading-relaxed">
             Authentic Panchakarma therapies, natural healing practices and compassionate care, guided by wisdom passed down through generations.
           </p>
           

@@ -12,76 +12,63 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ProblemStory() {
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
-  const imageRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Reveal text lines
-    const textLines = textRef.current?.querySelectorAll(".reveal-line");
-    if (textLines) {
-      gsap.fromTo(
-        textLines,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.2,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: textRef.current,
-            start: "top 80%",
-            end: "bottom 20%",
-          },
-        }
-      );
-    }
-
-    // Parallax images
-    imageRefs.current.forEach((img, i) => {
-      if (img) {
-        gsap.to(img, {
-          yPercent: i % 2 === 0 ? -20 : 20,
-          ease: "none",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
+    const ctx = gsap.context(() => {
+      const textLines = textRef.current?.querySelectorAll(".reveal-line");
+      if (textLines) {
+        gsap.fromTo(
+          textLines,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.15,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: "top 60%",
+              end: "center center",
+              scrub: true,
+            },
+          }
+        );
       }
     });
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <Section ref={containerRef} dark className="relative overflow-hidden min-h-[120svh] flex flex-col justify-center">
-      
-      {/* Background/Floating Images */}
-      <div 
-        ref={(el) => { imageRefs.current[0] = el; }} 
-        className="absolute top-20 right-10 md:right-[10%] w-[40vw] max-w-[300px] aspect-[3/4] opacity-40 mix-blend-luminosity overflow-hidden rounded-2xl"
-      >
-        <Image src="/images/11_business_card_mockup.png" alt="Tension" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
-      </div>
-
-      <div 
-        ref={(el) => { imageRefs.current[1] = el; }} 
-        className="absolute bottom-20 left-10 md:left-[10%] w-[50vw] max-w-[400px] aspect-square opacity-30 mix-blend-luminosity overflow-hidden rounded-2xl"
-      >
-        <Image src="/images/08_reception_mockup.png" alt="Rest" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
-      </div>
-
-      <div className="relative z-10 max-w-5xl mx-auto" ref={textRef}>
-        <Heading level={2} className="mb-12">
-          <span className="reveal-line block text-warm/50">Modern life often treats symptoms.</span>
-          <span className="reveal-line block">Ayurveda seeks the root.</span>
-        </Heading>
+    <Section ref={containerRef} className="relative overflow-hidden min-h-[100svh] flex flex-col justify-center py-32 z-10">
+      <div className="max-w-[1600px] mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-center relative">
         
-        <p className="reveal-line font-secondary text-xl md:text-3xl max-w-3xl leading-relaxed text-warm/80">
-          Stress, disrupted sleep, digestive discomfort and recurring body pain can be connected expressions of imbalance. Authentic Ayurvedic care begins by understanding the individual as a whole - body, mind and daily life.
-        </p>
+        {/* Supporting Masked Image */}
+        <div className="md:col-span-5 md:col-start-1 relative w-full aspect-[4/5] md:aspect-square overflow-hidden rounded-2xl md:rounded-[40px] opacity-90">
+          <Image 
+            src="/images/11_business_card_mockup.png" 
+            alt="Nature element representing imbalance" 
+            fill 
+            sizes="(max-width: 768px) 100vw, 50vw" 
+            className="object-cover scale-105" 
+          />
+        </div>
+
+        {/* Editorial Text */}
+        <div className="md:col-span-6 md:col-start-7 flex flex-col justify-center" ref={textRef}>
+          <Heading level={2} className="mb-10 lg:mb-16">
+            <span className="reveal-line block text-black/50 text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] mb-2">Modern life often treats symptoms.</span>
+            <span className="reveal-line block text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1]">Ayurveda seeks the root.</span>
+          </Heading>
+          
+          <p className="reveal-line font-secondary text-lg md:text-2xl lg:text-3xl max-w-2xl leading-snug text-black/80">
+            Stress, disrupted sleep, digestive discomfort and recurring body pain can be connected expressions of imbalance. Authentic Ayurvedic care begins by understanding the individual as a whole&mdash;body, mind and daily life.
+          </p>
+        </div>
+
       </div>
     </Section>
   );

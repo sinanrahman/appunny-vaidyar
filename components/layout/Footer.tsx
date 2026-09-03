@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import Section from "../ui/Section";
-import Heading from "../ui/Heading";
 
 export default function Footer() {
   return (
@@ -64,9 +63,9 @@ export default function Footer() {
               <address className="not-italic font-secondary mb-6 max-w-xs">
                 No. 251, Sri Sai Nivas, Ground Floor, 1st Main Road, Vidyanagara, T. Dasarahalli, Bangalore, Karnataka 560057, India
               </address>
-              <div className="font-secondary space-y-2">
-                <p>Monday - Saturday: [Opening Hours]</p>
-                <p>Sunday: [Opening Hours]</p>
+              <div className="font-secondary space-y-2 mt-4 text-warm/70">
+                <p>Consultations by appointment &mdash;</p>
+                <p>please call to confirm availability.</p>
               </div>
             </div>
           </div>

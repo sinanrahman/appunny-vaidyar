@@ -18,15 +18,17 @@ export default function Heritage() {
 
   return (
     <Section dark className="relative overflow-hidden">
-      <div className="absolute inset-0 z-0 opacity-10">
-        <Image src="/images/09_signboard_mockup.png" alt="Heritage Texture" fill sizes="100vw" className="object-cover" />
-      </div>
-      
-      <div className="relative z-10 max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-        <div>
+      <div className="relative z-10 max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-12 items-center">
+        
+        {/* Signboard Visual */}
+        <div className="lg:col-span-5 relative w-full aspect-[4/5] overflow-hidden rounded-[2rem] opacity-90">
+          <Image src="/images/09_signboard_mockup.png" alt="Heritage Concept" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
+        </div>
+
+        <div className="lg:col-span-6 lg:col-start-7">
           <Heading level={2} className="mb-10 text-warm">Wisdom Passed Down.<br/>Care Made Personal.</Heading>
           
-          <div className="space-y-8 font-secondary text-lg text-warm/80 max-w-xl">
+          <div className="space-y-8 font-secondary text-lg text-warm/80 max-w-xl mb-16">
             <p>
               <strong>Our Vision:</strong> To become a trusted Ayurvedic wellness destination that preserves traditional healing wisdom while inspiring healthier, more balanced lives for generations to come.
             </p>
@@ -35,24 +37,21 @@ export default function Heritage() {
             </p>
           </div>
           
-          <div className="mt-12 pt-12 border-t border-warm/20">
-            <h3 className="font-primary text-3xl text-warm mb-2">Prem Kumar P V</h3>
-            <p className="font-secondary text-warm/70 uppercase tracking-widest text-sm mb-6">Parambara Vaidyar</p>
-            <Button href="/practitioner" variant="outline" className="border-warm text-warm hover:bg-warm hover:text-black">
-              Read Practitioner Profile
-            </Button>
+          <div className="pt-12 border-t border-warm/20 flex flex-col md:flex-row gap-8 items-start md:items-center">
+            {/* Reserved Practitioner Portrait Placeholder */}
+            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-warm/10 flex items-center justify-center flex-shrink-0">
+              <span className="font-secondary text-warm/40 text-xs text-center px-4 uppercase tracking-widest leading-relaxed">
+                Portrait Reserved
+              </span>
+            </div>
+            <div>
+              <h3 className="font-primary text-3xl text-warm mb-2">Prem Kumar P V</h3>
+              <p className="font-secondary text-warm/70 uppercase tracking-widest text-sm mb-6">Parambara Vaidyar</p>
+              <Button href="/practitioner" variant="outline" className="border-warm text-warm hover:bg-warm hover:text-black">
+                Read Practitioner Profile
+              </Button>
+            </div>
           </div>
-        </div>
-        
-        <div className="relative w-full aspect-[3/4] md:aspect-square lg:aspect-[3/4] rounded-2xl overflow-hidden">
-          {/* Temporary visual direction. To be replaced with real practitioner portrait. */}
-          <Image 
-            src="/images/13_uniform_mockup.png" 
-            alt="Prem Kumar P V, Parambara Vaidyar" 
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover"
-          />
         </div>
       </div>
 

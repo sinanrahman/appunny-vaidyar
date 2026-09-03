@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { cn } from "@/lib/utils";
-import Heading from "../ui/Heading";
 
 interface NavigationOverlayProps {
   isOpen: boolean;
