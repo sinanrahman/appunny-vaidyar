@@ -43,7 +43,7 @@ export default function Approach() {
   useEffect(() => {
     // Only pin on desktop
     const isDesktop = window.innerWidth >= 768;
-    
+
     const ctx = gsap.context(() => {
       if (isDesktop && containerRef.current && leftColRef.current && rightColRef.current) {
         ScrollTrigger.create({
@@ -80,12 +80,12 @@ export default function Approach() {
   return (
     <Section ref={containerRef} className={`relative !py-0 w-full max-w-[1600px] mx-auto ${styles.approachSection}`}>
       <ApproachStone approachRef={containerRef} />
-      
+
       <div className={`flex flex-col md:flex-row w-full h-full relative ${styles.approachContent}`}>
-        
+
         {/* Left Column - Sticky on Desktop */}
-        <div 
-          ref={leftColRef} 
+        <div
+          ref={leftColRef}
           className="w-full md:w-5/12 h-auto md:h-[100svh] flex flex-col justify-center py-20 pr-0 md:pr-12 lg:pr-24"
         >
           <Heading level={2} className="mb-8">A Complete Approach to Healing.</Heading>
@@ -97,18 +97,18 @@ export default function Approach() {
         {/* Right Column - Scrolling Cards */}
         <div ref={rightColRef} className="w-full md:w-7/12 flex flex-col gap-12 md:gap-16 py-10 md:py-32">
           {features.map((feature, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               ref={(el) => { cardsRef.current[index] = el; }}
               className="flex flex-col gap-6"
             >
               <div className="relative w-full aspect-[4/3] md:aspect-[3/2] overflow-hidden rounded-2xl group">
-                <Image 
-                  src={feature.img} 
-                  alt={feature.title} 
+                <Image
+                  src={feature.img}
+                  alt={feature.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105" 
+                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
                 />
               </div>
               <div className={index === 3 ? styles.followUpContent : ""}>
@@ -118,7 +118,7 @@ export default function Approach() {
             </div>
           ))}
         </div>
-        
+
       </div>
     </Section>
   );

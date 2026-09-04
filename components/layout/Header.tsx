@@ -5,6 +5,37 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import NavigationOverlay from "./NavigationOverlay";
+import styles from "./Header.module.css";
+
+function AyurvedicMenuIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path
+        d="M12 10C9.8 7.7 9.9 4.7 12 2.2C14.1 4.7 14.2 7.7 12 10Z"
+        fill="currentColor"
+      />
+      <path
+        d="M14 12C16.3 9.8 19.3 9.9 21.8 12C19.3 14.1 16.3 14.2 14 12Z"
+        fill="currentColor"
+      />
+      <path
+        d="M12 14C14.2 16.3 14.1 19.3 12 21.8C9.9 19.3 9.8 16.3 12 14Z"
+        fill="currentColor"
+      />
+      <path
+        d="M10 12C7.7 14.2 4.7 14.1 2.2 12C4.7 9.9 7.7 9.8 10 12Z"
+        fill="currentColor"
+      />
+      <circle cx="12" cy="12" r="1.35" fill="currentColor" />
+    </svg>
+  );
+}
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,45 +54,37 @@ export default function Header() {
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-40 transition-colors duration-300",
-          isScrolled ? "bg-warm/90 backdrop-blur-md shadow-sm text-black" : "bg-transparent text-warm"
+          styles.navbar,
+          isScrolled && styles.navbarScrolled
         )}
       >
-        <div className="px-[clamp(20px,4vw,72px)] h-20 md:h-24 flex items-center justify-between max-w-[1600px] mx-auto w-full">
-          <Link href="/" className="relative z-50 flex items-center">
-            {/* When not scrolled (hero), use white/light text. When scrolled, use dark logo. */}
-            <div className="relative w-[180px] h-[40px] md:w-[220px] md:h-[48px]">
-              {/* For now, just using primary logo, but ideally would swap to a white version when bg is transparent */}
-              <Image 
-                src="/images/02_primary_logo.png" 
-                alt="Appunni Vaidyar Parvathy" 
-                fill
-                sizes="120px"
-                className={cn("object-contain transition-opacity", !isScrolled ? "brightness-0 invert" : "")}
-                priority
-              />
-            </div>
-          </Link>
+        <button
+          type="button"
+          className={styles.menuTrigger}
+          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-expanded={menuOpen}
+          aria-controls="main-navigation-drawer"
+          onClick={() => setMenuOpen((open) => !open)}
+        >
+          <AyurvedicMenuIcon className={cn(styles.menuIcon, menuOpen && styles.menuIconOpen)} />
+          <span>{menuOpen ? "CLOSE" : "MENU"}</span>
+        </button>
 
-          <div className="flex items-center gap-4 md:gap-8 relative z-50">
-            <button 
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="font-secondary font-medium uppercase tracking-widest text-sm hover:opacity-70 transition-opacity"
-            >
-              {menuOpen ? "Close" : "Menu"}
-            </button>
+        <Link href="/" className={styles.navBrand}>
+          <Image
+            src="/images/03_secondary_logo.png"
+            alt="Appunni Vaidyar Parvathy"
+            width={260}
+            height={102}
+            priority
+            className={styles.navLogo}
+            style={{ filter: !isScrolled ? "brightness(0) invert(1)" : "none" }}
+          />
+        </Link>
 
-            <Link 
-              href="/contact" 
-              className={cn(
-                "hidden md:inline-flex items-center justify-center rounded-full font-secondary font-medium px-6 py-3 transition-colors duration-300",
-                isScrolled ? "bg-primary text-warm hover:bg-black" : "bg-warm text-primary hover:bg-white"
-              )}
-            >
-              Book Consultation
-            </Link>
-          </div>
-        </div>
+        <Link href="/contact" className={styles.consultationLink}>
+          BOOK CONSULTATION
+        </Link>
       </header>
 
       <NavigationOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />

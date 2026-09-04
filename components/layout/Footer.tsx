@@ -1,92 +1,170 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Section from "../ui/Section";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import styles from "./Footer.module.css";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Footer() {
+  const footerRef = useRef<HTMLElement>(null);
+  const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (reducedMotion || !footerRef.current) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const staggerElements = gsap.utils.toArray(".footer-stagger");
+      const contactBlock = document.querySelector(`.${styles.contactFeature}`);
+      const bottomLogo = document.querySelector(`.${styles.bottomLogo}`);
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top 85%",
+          once: true,
+        },
+      });
+
+      // Set initial states
+      gsap.set(staggerElements, { opacity: 0, y: 18 });
+      if (contactBlock) gsap.set(contactBlock, { opacity: 0, x: 20 });
+      if (bottomLogo) gsap.set(bottomLogo, { opacity: 0, y: 30, scale: 0.9 });
+
+      const duration = 0.8;
+      const ease = "power3.out";
+
+      tl.to(staggerElements, {
+        opacity: 1,
+        y: 0,
+        duration,
+        ease,
+        stagger: 0.05,
+      }, 0)
+      .to(contactBlock, {
+        opacity: 1,
+        x: 0,
+        duration,
+        ease,
+      }, 0.2)
+      .to(bottomLogo, {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.85,
+        ease,
+      }, 0.3);
+
+    }, footerRef);
+
+    return () => ctx.revert();
+  }, [reducedMotion]);
+
   return (
-    <footer className="bg-primary text-warm/80">
-      <Section className="!py-16 md:!py-24" dark>
-        <div className="max-w-[1600px] mx-auto">
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
-            <div className="lg:col-span-1 flex flex-col gap-8">
-              <Link href="/">
-                <div className="relative w-[180px] h-[60px]">
-                  <Image 
-                    src="/images/03_secondary_logo.png" 
-                    alt="Appunni Vaidyar Parvathy" 
-                    fill
-                    sizes="180px"
-                    className="object-contain object-left brightness-0 invert" 
-                  />
-                </div>
-              </Link>
-              <p className="font-secondary max-w-xs">
-                Traditional wisdom. Personal care. Lasting wellness.
-              </p>
-            </div>
+    <footer ref={footerRef} className={styles.footer}>
+      <div className={styles.footerTop}>
+        <nav aria-label="Footer navigation" className={styles.footerColumns}>
+          {/* Explore */}
+          <div>
+            <h2 className={`footer-stagger ${styles.footerHeading}`}>Explore</h2>
+            <Link href="/approach" className={`footer-stagger ${styles.footerLink}`}>Our Approach</Link>
+            <Link href="/treatments" className={`footer-stagger ${styles.footerLink}`}>Treatments</Link>
+            <Link href="/practitioner" className={`footer-stagger ${styles.footerLink}`}>Practitioner</Link>
+            <Link href="/journal" className={`footer-stagger ${styles.footerLink}`}>Journal</Link>
+            <Link href="/faq" className={`footer-stagger ${styles.footerLink}`}>FAQ</Link>
+            <Link href="/about" className={`footer-stagger ${styles.footerLink}`}>About Us</Link>
+          </div>
 
-            <div>
-              <h4 className="font-primary text-xl text-warm mb-6">Explore</h4>
-              <ul className="flex flex-col gap-3 font-secondary">
-                <li><Link href="/approach" className="hover:text-warm transition-colors">Our Approach</Link></li>
-                <li><Link href="/treatments" className="hover:text-warm transition-colors">Treatments</Link></li>
-                <li><Link href="/practitioner" className="hover:text-warm transition-colors">Practitioner</Link></li>
-                <li><Link href="/journal" className="hover:text-warm transition-colors">Journal</Link></li>
-                <li><Link href="/faq" className="hover:text-warm transition-colors">FAQ</Link></li>
-                <li><Link href="/about" className="hover:text-warm transition-colors">About Us</Link></li>
-              </ul>
-            </div>
+          {/* Treatments */}
+          <div>
+            <h2 className={`footer-stagger ${styles.footerHeading}`}>Treatments</h2>
+            <Link href="/treatments/panchakarma" className={`footer-stagger ${styles.footerLink}`}>Panchakarma</Link>
+            <Link href="/treatments/herbal-medicines" className={`footer-stagger ${styles.footerLink}`}>Herbal Medicines</Link>
+            <Link href="/treatments/consultations" className={`footer-stagger ${styles.footerLink}`}>Ayurvedic Consultations</Link>
+            <Link href="/treatments/rejuvenation" className={`footer-stagger ${styles.footerLink}`}>Wellness & Rejuvenation</Link>
+          </div>
 
-            <div>
-              <h4 className="font-primary text-xl text-warm mb-6">Contact</h4>
-              <ul className="flex flex-col gap-3 font-secondary">
-                <li><Link href="/contact" className="hover:text-warm transition-colors text-warm">Book Consultation</Link></li>
-                <li><a href="tel:+919448039840" className="hover:text-warm transition-colors">+91 94480 39840 (Primary)</a></li>
-                <li><a href="tel:+919341310462" className="hover:text-warm transition-colors">+91 93413 10462</a></li>
-                <li><a href="tel:+917094417500" className="hover:text-warm transition-colors">+91 70944 17500</a></li>
-                <li>
-                  <a 
-                    href="https://wa.me/919448039840?text=Hello%20Appunni%20Vaidyar%20Parvathy%2C%20I%20would%20like%20to%20book%20an%20Ayurvedic%20consultation." 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="hover:text-warm transition-colors text-warm mt-2 inline-block"
-                  >
-                    WhatsApp Chat
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-primary text-xl text-warm mb-6">Visit</h4>
-              <address className="not-italic font-secondary mb-6 max-w-xs">
-                No. 251, Sri Sai Nivas, Ground Floor, 1st Main Road, Vidyanagara, T. Dasarahalli, Bangalore, Karnataka 560057, India
-              </address>
-              <div className="font-secondary space-y-2 mt-4 text-warm/70">
-                <p>Consultations by appointment &mdash;</p>
-                <p>please call to confirm availability.</p>
-              </div>
+          {/* Contact */}
+          <div>
+            <h2 className={`footer-stagger ${styles.footerHeading}`}>Contact</h2>
+            <Link href="/contact" className={`footer-stagger ${styles.footerLink}`}>Book Consultation</Link>
+            <a href="https://wa.me/919448039840" target="_blank" rel="noopener noreferrer" className={`footer-stagger ${styles.footerLink}`}>WhatsApp Chat</a>
+            <Link href="/privacy" className={`footer-stagger ${styles.footerLink}`}>Privacy Policy</Link>
+            <Link href="/terms" className={`footer-stagger ${styles.footerLink}`}>Terms of Service</Link>
+            
+            <div className="mt-4">
+              <a href="tel:+919341310462" className={`footer-stagger ${styles.footerTextLight}`}>+91 93413 10462</a>
+              <a href="tel:+917094417500" className={`footer-stagger ${styles.footerTextLight}`}>+91 70944 17500</a>
             </div>
           </div>
 
-          <div className="pt-8 border-t border-warm/20 flex flex-col md:flex-row items-center justify-between gap-6 font-secondary text-sm">
-            <div className="flex gap-4">
-              <Link href="/privacy" className="hover:text-warm transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-warm transition-colors">Terms of Service</Link>
-            </div>
-            
-            <p className="text-center md:text-right max-w-2xl text-warm/50 text-xs">
-              <strong>Medical Disclaimer:</strong> This website provides educational information about traditional Ayurveda and does not substitute professional medical advice, diagnosis, or treatment. Urgent symptoms require appropriate emergency medical care. Suitability for specific therapies is determined only after individual consultation.
+          {/* Visit */}
+          <div>
+            <h2 className={`footer-stagger ${styles.footerHeading}`}>Visit</h2>
+            <address className={`footer-stagger ${styles.footerText} not-italic`}>
+              VIDYANAGARA<br />
+              T. DASARAHALLI<br />
+              BANGALORE 560057
+            </address>
+            <p className={`footer-stagger ${styles.footerTextLight} mt-4`}>
+              Consultations by appointment
             </p>
           </div>
-          
-          <div className="mt-8 text-center text-warm/40 text-sm font-secondary">
-            &copy; {new Date().getFullYear()} Appunni Vaidyar Parvathy. All rights reserved.
-          </div>
+        </nav>
 
+        <div className={styles.contactFeature}>
+          <p className={styles.contactEyebrow}>
+            HAVE QUESTIONS?<br />
+            SPEAK WITH OUR CARE TEAM:
+          </p>
+
+          <a href="tel:+919448039840" className={styles.primaryContact}>
+            +91 94480 39840
+          </a>
+
+          <a
+            href="https://wa.me/919448039840"
+            className={styles.whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Primary &amp; WhatsApp
+          </a>
         </div>
-      </Section>
+      </div>
+
+      <div className={styles.disclaimer}>
+        Medical Disclaimer: Website information is educational and does not replace professional medical advice, diagnosis or treatment. Suitability for therapies is determined only after individual consultation.
+      </div>
+
+      <div className={styles.footerBottom}>
+        <div className={styles.copyright}>
+          © {new Date().getFullYear()} APPUNNI VAIDYAR PARVATHY
+        </div>
+
+        <Link href="/" className={styles.bottomLogo} aria-label="Appunni Vaidyar Parvathy — Home">
+          <Image
+            src="/images/04_logo_mark.png"
+            alt=""
+            width={1536}
+            height={1536}
+            className={styles.bottomLogoImage}
+          />
+        </Link>
+
+        <div className={styles.legalLinks}>
+          <Link href="/privacy">Privacy Policy</Link>
+          <Link href="/terms">Terms of Service</Link>
+        </div>
+      </div>
     </footer>
   );
 }

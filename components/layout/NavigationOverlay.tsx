@@ -4,114 +4,181 @@ import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { gsap } from "gsap";
-import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
+import styles from "./NavigationOverlay.module.css";
 
 interface NavigationOverlayProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+const navLinks = [
+  { label: "Home", href: "/" },
+  { label: "Our Approach", href: "/approach" },
+  { label: "Treatments", href: "/treatments" },
+  { label: "Practitioner", href: "/practitioner" },
+  { label: "Journal", href: "/journal" },
+  { label: "Contact", href: "/contact" },
+];
+
+function AyurvedicMenuIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <path d="M12 10C9.8 7.7 9.9 4.7 12 2.2C14.1 4.7 14.2 7.7 12 10Z" fill="currentColor" />
+      <path d="M14 12C16.3 9.8 19.3 9.9 21.8 12C19.3 14.1 16.3 14.2 14 12Z" fill="currentColor" />
+      <path d="M12 14C14.2 16.3 14.1 19.3 12 21.8C9.9 19.3 9.8 16.3 12 14Z" fill="currentColor" />
+      <path d="M10 12C7.7 14.2 4.7 14.1 2.2 12C4.7 9.9 7.7 9.8 10 12Z" fill="currentColor" />
+      <circle cx="12" cy="12" r="1.35" fill="currentColor" />
+    </svg>
+  );
+}
+
 export default function NavigationOverlay({ isOpen, onClose }: NavigationOverlayProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLUListElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
+  const closeBtnRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!overlayRef.current || !linksRef.current || !bgRef.current) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
-    const links = linksRef.current.querySelectorAll("li");
-
+  useEffect(() => {
     if (isOpen) {
-      gsap.to(overlayRef.current, {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        duration: 0.8,
-        ease: "power3.inOut",
-      });
+      document.body.style.overflow = "hidden";
+      if (!reducedMotion) {
+        document.body.style.transition = "transform 750ms cubic-bezier(0.76, 0, 0.24, 1)";
+      }
+      
+      // Focus management
+      setTimeout(() => {
+        closeBtnRef.current?.focus();
+      }, 100);
+    } else {
+      document.body.style.overflow = "";
+      if (!reducedMotion) {
+        setTimeout(() => {
+          if (!isOpen) document.body.style.transition = "";
+        }, 750);
+      }
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.transition = "";
+    };
+  }, [isOpen, reducedMotion]);
 
-      gsap.fromTo(
-        bgRef.current,
-        { scale: 1.1, opacity: 0 },
-        { scale: 1, opacity: 0.2, duration: 1.2, ease: "power2.out", delay: 0.2 }
-      );
-
+  useEffect(() => {
+    if (!linksRef.current || reducedMotion) return;
+    
+    const links = linksRef.current.querySelectorAll(`.${styles.drawerLink}`);
+    
+    if (isOpen) {
       gsap.fromTo(
         links,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out", delay: 0.4 }
+        { opacity: 0, y: "105%" },
+        {
+          opacity: 1,
+          y: "0%",
+          duration: 0.55,
+          stagger: 0.065,
+          ease: "power3.out",
+          delay: 0.2, // slight delay to wait for drawer opening
+        }
       );
     } else {
-      gsap.to(overlayRef.current, {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-        duration: 0.6,
-        ease: "power3.inOut",
-      });
+      gsap.killTweensOf(links);
+      gsap.set(links, { opacity: 0, y: "105%" });
     }
-  }, [isOpen]);
-
-  const navLinks = [
-    { label: "Home", href: "/" },
-    { label: "Our Approach", href: "/approach" },
-    { label: "Treatments", href: "/treatments" },
-    { label: "Practitioner", href: "/practitioner" },
-    { label: "Journal", href: "/journal" },
-    { label: "Contact", href: "/contact" },
-  ];
+  }, [isOpen, reducedMotion]);
 
   return (
-    <div
-      ref={overlayRef}
-      className={cn(
-        "fixed inset-0 z-40 bg-primary text-warm flex items-center pt-24",
-        !isOpen && "pointer-events-none"
-      )}
-      style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)" }}
-    >
+    <>
       <div 
-        ref={bgRef} 
-        className="absolute inset-0 z-0 opacity-20 pointer-events-none"
+        className={styles.drawerBackdrop} 
+        data-open={isOpen} 
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      
+      <div
+        id="main-navigation-drawer"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation menu"
+        className={styles.menuDrawer}
+        data-open={isOpen}
+        ref={overlayRef}
+        inert={!isOpen ? true : undefined}
+        aria-hidden={!isOpen}
       >
-        <Image 
-          src="/images/06_brand_poster_herbs.png" 
-          alt="Herbs" 
+        <Image
+          src="/images/appunni-navbar-drawer-background.png"
+          alt=""
           fill
-          sizes="100vw"
-          className="object-cover"
+          sizes="(max-width: 900px) 100vw, 43vw"
+          className={styles.drawerBackground}
         />
-      </div>
+        <div className={styles.drawerTint} />
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-[clamp(20px,4vw,72px)] grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
-          <ul ref={linksRef} className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link 
-                  href={link.href}
-                  onClick={onClose}
-                  className="font-primary text-5xl md:text-7xl lg:text-[6rem] leading-none tracking-tight hover:opacity-70 transition-opacity"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        
-        <div className="flex flex-col justify-end pb-12 gap-8">
-          <div>
-            <h4 className="font-secondary font-medium uppercase tracking-widest text-sm mb-4 opacity-70">Contact</h4>
-            <div className="flex flex-col gap-2 font-secondary text-lg">
-              <a href="tel:+919448039840" className="hover:opacity-70 transition-opacity">+91 94480 39840</a>
-              <a href="https://wa.me/919448039840" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">WhatsApp Chat</a>
-            </div>
+        <div className={styles.drawerContent}>
+          <div className={styles.drawerHeader}>
+            <button 
+              ref={closeBtnRef}
+              type="button"
+              className={styles.drawerClose} 
+              onClick={onClose}
+              aria-label="Close navigation menu"
+            >
+              <AyurvedicMenuIcon className={styles.menuIcon} />
+              <span>CLOSE</span>
+            </button>
           </div>
-          <div>
-            <h4 className="font-secondary font-medium uppercase tracking-widest text-sm mb-4 opacity-70">Location</h4>
-            <p className="font-secondary text-lg max-w-sm">
-              No. 251, Sri Sai Nivas, Ground Floor, 1st Main Road, Vidyanagara, T. Dasarahalli, Bangalore, Karnataka 560057
-            </p>
+
+          <nav aria-label="Main navigation" className={styles.drawerNav}>
+            <ul ref={linksRef} className={styles.drawerNavList}>
+              {navLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <li key={link.href} className={styles.drawerLinkWrapper}>
+                    <Link
+                      href={link.href}
+                      onClick={onClose}
+                      className={styles.drawerLink}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      <span className={styles.linkMarker} aria-hidden="true">
+                        <AyurvedicMenuIcon className="w-5 h-5 inline" />
+                      </span>
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div className={styles.drawerFooter}>
+            <p>Authentic Ayurveda</p>
+            <p><a href="tel:+919448039840">+91 94480 39840</a></p>
+            <p>Vidyanagara, T. Dasarahalli, Bangalore</p>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

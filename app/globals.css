@@ -35,6 +35,13 @@ html.lenis, html.lenis body {
   height: auto;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: clip;
+}
+
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
