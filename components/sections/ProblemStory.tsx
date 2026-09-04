@@ -45,7 +45,6 @@ export default function ProblemStory() {
   return (
     <Section ref={containerRef} className="relative overflow-hidden min-h-[100svh] flex flex-col justify-center py-32 z-10">
       <div className="max-w-[1600px] mx-auto w-full grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-center relative">
-        <div data-stone-anchor="problem" className="absolute w-4 h-4 hidden md:block" style={{ left: "50%", top: "45%" }} />
         
         {/* Supporting Masked Image */}
         <div className="md:col-span-5 md:col-start-1 relative w-full aspect-[4/5] md:aspect-square overflow-hidden rounded-2xl md:rounded-[40px] opacity-90">

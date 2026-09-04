@@ -61,7 +61,6 @@ export default function Hero() {
       className="relative w-full h-[100svh] min-h-[700px] flex items-center pb-20 pt-32 overflow-hidden bg-black text-warm"
     >
       <div className="absolute inset-0 z-0">
-        <div data-stone-anchor="hero" className="absolute w-4 h-4" style={{ left: "65.5%", top: "40.5%" }} />
         <Image
           ref={imageRef}
           src="/images/01_hero_reference.png"

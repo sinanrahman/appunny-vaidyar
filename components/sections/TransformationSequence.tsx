@@ -94,21 +94,15 @@ export default function TransformationSequence() {
         {/* Text Overlays */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-4">
           <div className="absolute inset-0 flex items-center justify-center" ref={(el) => { textRefs.current[0] = el; }}>
-            <div className="relative">
-              <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
-                Understand the individual.
-              </Heading>
-              <div data-stone-anchor="green-intro" className="absolute w-4 h-4" style={{ right: "-100px", top: "50%" }} />
-            </div>
+            <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
+              Understand the individual.
+            </Heading>
           </div>
           
           <div className="absolute inset-0 flex items-center justify-center opacity-0" ref={(el) => { textRefs.current[1] = el; }}>
-            <div className="relative">
-              <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
-                Restore the natural rhythm.
-              </Heading>
-              <div data-stone-anchor="green-middle" className="absolute w-4 h-4" style={{ left: "10%", bottom: "-100px" }} />
-            </div>
+            <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
+              Restore the natural rhythm.
+            </Heading>
           </div>
           
           <div className="absolute inset-0 flex items-center justify-center opacity-0" ref={(el) => { textRefs.current[2] = el; }}>

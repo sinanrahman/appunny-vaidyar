@@ -78,7 +78,6 @@ export default function Approach() {
   return (
     <Section ref={containerRef} className="relative !py-0 w-full max-w-[1600px] mx-auto">
       <div className="flex flex-col md:flex-row w-full h-full relative">
-        <div data-stone-anchor="approach-start" className="absolute top-[10%] right-[10%] w-4 h-4 hidden md:block" />
         
         {/* Left Column - Sticky on Desktop */}
         <div 
@@ -111,8 +110,6 @@ export default function Approach() {
               <div>
                 <Heading level={4} className="mb-2">{feature.title}</Heading>
                 <p className="font-secondary text-black/70 text-lg">{feature.desc}</p>
-                {index === 0 && <div data-stone-anchor="approach-middle" className="absolute -bottom-16 left-1/4 w-4 h-4 hidden md:block" />}
-                {index === 2 && <div data-stone-anchor="approach-end" className="absolute top-1/4 -left-12 w-4 h-4 hidden md:block" />}
               </div>
             </div>
           ))}

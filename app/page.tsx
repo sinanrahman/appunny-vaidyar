@@ -3,7 +3,6 @@ import StoryWrapper from "@/components/sections/StoryWrapper";
 import ProblemStory from "@/components/sections/ProblemStory";
 import TransformationSequence from "@/components/sections/TransformationSequence";
 import Approach from "@/components/sections/Approach";
-import OilSection from "@/components/sections/OilSection";
 import Treatments from "@/components/sections/Treatments";
 import Heritage from "@/components/sections/Heritage";
 import Gallery from "@/components/sections/Gallery";
@@ -19,7 +18,6 @@ export default function Home() {
         <ProblemStory />
         <TransformationSequence />
         <Approach />
-        <OilSection />
       </StoryWrapper>
       <Heritage />
       <Treatments />
