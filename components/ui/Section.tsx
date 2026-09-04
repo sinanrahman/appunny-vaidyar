@@ -12,7 +12,7 @@ const Section = forwardRef<HTMLElement, SectionProps>(
       <section
         ref={ref}
         className={cn(
-          "px-[clamp(20px,4vw,72px)] py-20 md:py-32 w-full",
+          "px-[var(--page-gutter)] py-20 md:py-32 w-full",
           dark ? "bg-primary text-warm dark-section" : "bg-warm text-black",
           className
         )}

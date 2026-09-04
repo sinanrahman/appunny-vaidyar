@@ -65,9 +65,9 @@ export default function TransformationSequence() {
       <section className="relative w-full py-32 bg-primary text-warm flex flex-col items-center justify-center gap-12">
         <Image src="/images/10_product_packaging_mockup.png" alt="Ayurvedic Preparation" width={600} height={400} className="object-cover rounded-2xl opacity-60" />
         <div className="relative z-10 text-center max-w-4xl px-6">
-          <Heading level={2} className="mb-6">Understand the individual.</Heading>
-          <Heading level={2} className="mb-6 text-warm/70">Restore the natural rhythm.</Heading>
-          <Heading level={2} className="text-warm/40">Support lasting wellness.</Heading>
+          <Heading level={2} className="mb-6 max-w-[900px] w-full mx-auto text-center">Understand the individual.</Heading>
+          <Heading level={2} className="mb-6 text-warm/70 max-w-[900px] w-full mx-auto text-center">Restore the natural rhythm.</Heading>
+          <Heading level={2} className="text-warm/40 max-w-[900px] w-full mx-auto text-center">Support lasting wellness.</Heading>
         </div>
       </section>
     );
@@ -94,19 +94,19 @@ export default function TransformationSequence() {
         {/* Text Overlays */}
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-4">
           <div className="absolute inset-0 flex items-center justify-center" ref={(el) => { textRefs.current[0] = el; }}>
-            <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
+            <Heading level={2} className="text-warm text-center max-w-[900px] w-full mx-auto drop-shadow-lg">
               Understand the individual.
             </Heading>
           </div>
           
           <div className="absolute inset-0 flex items-center justify-center opacity-0" ref={(el) => { textRefs.current[1] = el; }}>
-            <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
+            <Heading level={2} className="text-warm text-center max-w-[900px] w-full mx-auto drop-shadow-lg">
               Restore the natural rhythm.
             </Heading>
           </div>
           
           <div className="absolute inset-0 flex items-center justify-center opacity-0" ref={(el) => { textRefs.current[2] = el; }}>
-            <Heading level={2} className="text-warm text-center max-w-4xl drop-shadow-lg">
+            <Heading level={2} className="text-warm text-center max-w-[900px] w-full mx-auto drop-shadow-lg">
               Support lasting wellness.
             </Heading>
           </div>

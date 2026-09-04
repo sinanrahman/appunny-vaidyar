@@ -92,9 +92,9 @@ export default function GoogleReviews() {
 
   if (error || !data || !data.reviews || data.reviews.length === 0) {
     return (
-      <Section className="bg-[#FAF9F6] text-center py-32">
-        <Heading level={3} className="mb-6">Patient Experiences</Heading>
-        <p className="font-secondary text-black/70 mb-8 max-w-xl mx-auto">
+      <Section className="bg-[#FAF9F6] flex flex-col items-center text-center py-32">
+        <Heading level={3} as="h2" className="mb-4 md:mb-5 max-w-[600px]">Patient Experiences</Heading>
+        <p className="type-body text-black/70 mb-6 md:mb-8 max-w-[580px]">
           Read authentic experiences and reviews from our patients directly on Google Maps.
         </p>
         <Button href={data?.googleMapsUri || fallbackMapsLink} external variant="outline" className="border-black/20">
@@ -108,7 +108,7 @@ export default function GoogleReviews() {
     <Section className="bg-[#FAF9F6] relative">
       <div className="max-w-[1600px] mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
-          <Heading level={2}>What Our Patients Share</Heading>
+          <Heading level={3} as="h2">What Our Patients Share</Heading>
           
           <div className="flex gap-4 items-center">
             <button 
@@ -170,7 +170,7 @@ export default function GoogleReviews() {
                     ))}
                   </div>
 
-                  <p className="font-secondary text-black/80 mb-6 whitespace-pre-wrap">
+                  <p className="type-body text-black/80 mb-6 whitespace-pre-wrap">
                     {review.originalText?.text}
                   </p>
                 </div>

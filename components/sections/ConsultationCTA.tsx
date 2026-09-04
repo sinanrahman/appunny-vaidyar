@@ -22,8 +22,8 @@ export default function ConsultationCTA() {
       <div className="relative z-10 w-full max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
         
         <div className="flex flex-col justify-center text-warm">
-          <Heading level={2} className="mb-8">Begin Your Healing Journey.</Heading>
-          <p className="font-secondary text-xl max-w-lg mb-12 text-warm/90">
+          <Heading level={2} className="mb-8 max-w-[620px]">Begin Your Healing Journey.</Heading>
+          <p className="type-body-large max-w-[500px] mb-12 text-warm/90">
             Speak with our care team to understand the right next step for you.
           </p>
 
@@ -46,17 +46,17 @@ export default function ConsultationCTA() {
 
           <div className="space-y-8 pt-12 border-t border-warm/20">
             <div>
-              <h4 className="font-secondary uppercase tracking-widest text-sm mb-4 text-warm/70">Telephone Directory</h4>
-              <div className="flex flex-col gap-2 font-secondary text-lg">
-                <a href="tel:+919448039840" className="hover:opacity-70 transition-opacity">+91 94480 39840 (Primary & WhatsApp)</a>
-                <a href="tel:+919341310462" className="hover:opacity-70 transition-opacity">+91 93413 10462</a>
-                <a href="tel:+917094417500" className="hover:opacity-70 transition-opacity">+91 70944 17500</a>
+              <h4 className="type-label mb-4 text-warm/70">Telephone Directory</h4>
+              <div className="flex flex-col gap-2 font-secondary text-[clamp(17px,2vw,20px)] leading-relaxed">
+                <a href="tel:+919448039840" className="hover:opacity-70 transition-opacity block">+91 94480 39840 (Primary & WhatsApp)</a>
+                <a href="tel:+919341310462" className="hover:opacity-70 transition-opacity block">+91 93413 10462</a>
+                <a href="tel:+917094417500" className="hover:opacity-70 transition-opacity block">+91 70944 17500</a>
               </div>
             </div>
             
             <div>
-              <h4 className="font-secondary uppercase tracking-widest text-sm mb-4 text-warm/70">Clinic Address</h4>
-              <p className="font-secondary text-lg max-w-sm">
+              <h4 className="type-label mb-4 text-warm/70">Clinic Address</h4>
+              <p className="font-secondary text-[clamp(17px,2vw,20px)] leading-relaxed max-w-sm">
                 No. 251, Sri Sai Nivas, Ground Floor, 1st Main Road, Vidyanagara, T. Dasarahalli, Bangalore, Karnataka 560057, India
               </p>
             </div>
@@ -65,7 +65,7 @@ export default function ConsultationCTA() {
 
         <div className="bg-warm rounded-3xl p-8 md:p-12 shadow-2xl">
           <Heading level={4} className="mb-2">Request an Appointment</Heading>
-          <p className="font-secondary text-black/60 mb-8">
+          <p className="type-body text-black/60 mb-8">
             Please provide your details below and our team will contact you to confirm a suitable time.
           </p>
           <AppointmentForm />

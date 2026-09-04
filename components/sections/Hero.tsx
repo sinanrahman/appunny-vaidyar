@@ -75,15 +75,15 @@ export default function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80" />
       </div>
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-[clamp(20px,4vw,72px)] flex flex-col justify-center h-full mt-24">
-        <div ref={textRef} className="w-full md:w-7/12 xl:w-1/2">
-          <h1 className="font-primary font-medium tracking-tight text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.9] mb-8">
+      <div className="relative z-10 w-full max-w-[var(--content-max)] mx-auto px-[var(--page-gutter)] flex flex-col justify-center h-full mt-24">
+        <div ref={textRef} className="w-full">
+          <h1 className="type-hero max-w-[680px] mb-6 md:mb-8 text-warm">
             <span className="line block">Ayurveda, Rooted</span>
             <span className="line block">in Tradition.</span>
             <span className="line block text-warm/70 mt-2">Healing, Made Personal.</span>
           </h1>
           
-          <p className="reveal-up font-secondary text-lg md:text-xl max-w-lg mb-10 text-warm/90 leading-relaxed">
+          <p className="reveal-up type-body-large max-w-[540px] mb-8 md:mb-9 text-warm/90">
             Authentic Panchakarma therapies, natural healing practices and compassionate care, guided by wisdom passed down through generations.
           </p>
           

@@ -30,7 +30,7 @@ export default function JournalPreview() {
   return (
     <Section className="bg-warm">
       <div className="max-w-[1600px] mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
+        <div className="flex flex-col md:flex-row md:items-baseline justify-between mb-12 md:mb-16 gap-4 md:gap-6">
           <Heading level={2}>From Our Healing Tradition.</Heading>
           <Link href="/journal" className="font-secondary font-medium hover:opacity-70 transition-opacity">
             View All Articles
@@ -54,10 +54,10 @@ export default function JournalPreview() {
                 />
               </div>
               <div>
-                <span className="font-secondary uppercase tracking-widest text-xs text-primary mb-3 block font-medium">
+                <span className="type-label text-primary mb-3 block">
                   {post.category}
                 </span>
-                <Heading level={4} className="group-hover:text-primary transition-colors">
+                <Heading level={4} className="group-hover:text-primary transition-colors min-h-[3em] md:min-h-[3.6em]">
                   {post.title}
                 </Heading>
               </div>

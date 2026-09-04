@@ -65,7 +65,7 @@ export default function Gallery() {
 
   return (
     <Section ref={containerRef} className="relative overflow-hidden md:!py-0 h-auto md:h-[100svh] flex flex-col md:justify-center">
-      <div className="mb-10 md:mb-0 md:absolute md:top-24 md:left-[clamp(20px,4vw,72px)] z-10 w-full pr-[clamp(20px,4vw,72px)]">
+      <div className="mb-10 md:mb-0 md:absolute md:top-24 md:left-[var(--page-gutter)] z-10 w-full pr-[var(--page-gutter)]">
         <Heading level={2}>
           A Space Made for Restoration.
         </Heading>
@@ -73,7 +73,7 @@ export default function Gallery() {
       
       <div 
         ref={sliderRef}
-        className="flex overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 gap-6 md:gap-10 md:pl-[clamp(20px,4vw,72px)] no-scrollbar mt-0 md:mt-16 w-full"
+        className="flex overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none pb-8 md:pb-0 gap-6 md:gap-10 md:pl-[var(--page-gutter)] no-scrollbar mt-0 md:mt-32 w-full"
       >
         {images.map((img, i) => (
           <div 
@@ -89,7 +89,7 @@ export default function Gallery() {
                 className="object-cover" 
               />
             </div>
-            <p className="font-secondary uppercase tracking-widest text-sm text-black/60">
+            <p className="type-label text-black/60">
               {img.caption}
             </p>
           </div>
@@ -97,7 +97,7 @@ export default function Gallery() {
       </div>
 
       {/* Progress Bar for Desktop */}
-      <div className="hidden md:block absolute bottom-12 left-[clamp(20px,4vw,72px)] right-[clamp(20px,4vw,72px)] h-[1px] bg-black/10">
+      <div className="hidden md:block absolute bottom-12 left-[var(--page-gutter)] right-[var(--page-gutter)] h-[1px] bg-black/10">
         <div ref={progressRef} className="h-full bg-black origin-left scale-x-0" />
       </div>
     </Section>

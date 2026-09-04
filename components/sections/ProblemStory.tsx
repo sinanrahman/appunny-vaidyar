@@ -59,12 +59,12 @@ export default function ProblemStory() {
 
         {/* Editorial Text */}
         <div className="md:col-span-6 md:col-start-7 flex flex-col justify-center" ref={textRef}>
-          <Heading level={2} className="mb-10 lg:mb-16">
-            <span className="reveal-line block text-black/50 text-[clamp(2rem,4vw,3.5rem)] leading-[1.1] mb-2">Modern life often treats symptoms.</span>
-            <span className="reveal-line block text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1]">Ayurveda seeks the root.</span>
+          <Heading level={2} className="mb-8 md:mb-12 max-w-[620px]">
+            <span className="reveal-line block text-black/50 mb-1 md:mb-2">Modern life often treats symptoms.</span>
+            <span className="reveal-line block">Ayurveda seeks the root.</span>
           </Heading>
           
-          <p className="reveal-line font-secondary text-lg md:text-2xl lg:text-3xl max-w-2xl leading-snug text-black/80">
+          <p className="reveal-line type-body-large max-w-[620px] text-black/80">
             Stress, disrupted sleep, digestive discomfort and recurring body pain can be connected expressions of imbalance. Authentic Ayurvedic care begins by understanding the individual as a whole&mdash;body, mind and daily life.
           </p>
         </div>

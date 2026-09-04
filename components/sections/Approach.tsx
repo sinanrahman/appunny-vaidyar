@@ -88,8 +88,8 @@ export default function Approach() {
           ref={leftColRef}
           className="w-full md:w-5/12 h-auto md:h-[100svh] flex flex-col justify-center py-20 pr-0 md:pr-12 lg:pr-24"
         >
-          <Heading level={2} className="mb-8">A Complete Approach to Healing.</Heading>
-          <p className="font-secondary text-lg md:text-xl text-black/80 max-w-md">
+          <Heading level={2} className="mb-7 md:mb-9 max-w-[460px]">A Complete Approach to Healing.</Heading>
+          <p className="type-body-large text-black/80 max-w-[440px]">
             Every journey begins with attentive consultation. Care is then personalized through traditional therapies, natural preparations and practical guidance suited to the individual&apos;s condition and way of life.
           </p>
         </div>
@@ -112,8 +112,8 @@ export default function Approach() {
                 />
               </div>
               <div className={index === 3 ? styles.followUpContent : ""}>
-                <Heading level={4} className="mb-2">{feature.title}</Heading>
-                <p className="font-secondary text-black/70 text-lg">{feature.desc}</p>
+                <Heading level={4} className="mb-2 md:mb-3">{feature.title}</Heading>
+                <p className="type-body text-black/70">{feature.desc}</p>
               </div>
             </div>
           ))}

@@ -26,9 +26,12 @@ export default function Heritage() {
         </div>
 
         <div className="lg:col-span-6 lg:col-start-7">
-          <Heading level={2} className="mb-10 text-warm">Wisdom Passed Down.<br/>Care Made Personal.</Heading>
+          <Heading level={2} className="mb-10 text-warm">
+            <span className="block">Wisdom Passed Down.</span>
+            <span className="block">Care Made Personal.</span>
+          </Heading>
           
-          <div className="space-y-8 font-secondary text-lg text-warm/80 max-w-xl mb-16">
+          <div className="space-y-8 type-body text-warm/80 max-w-[580px] mb-16">
             <p>
               <strong>Our Vision:</strong> To become a trusted Ayurvedic wellness destination that preserves traditional healing wisdom while inspiring healthier, more balanced lives for generations to come.
             </p>
@@ -45,8 +48,8 @@ export default function Heritage() {
               </span>
             </div>
             <div>
-              <h3 className="font-primary text-3xl text-warm mb-2">Prem Kumar P V</h3>
-              <p className="font-secondary text-warm/70 uppercase tracking-widest text-sm mb-6">Parambara Vaidyar</p>
+              <h3 className="type-subtitle text-warm mb-2">Prem Kumar P V</h3>
+              <p className="type-label text-warm/70 mb-6">Parambara Vaidyar</p>
               <Button href="/practitioner" variant="outline" className="border-warm text-warm hover:bg-warm hover:text-black">
                 Read Practitioner Profile
               </Button>

@@ -15,20 +15,18 @@ export default function Heading({
 }: HeadingProps) {
   const Component = as || (`h${level}` as React.ElementType);
 
-  const baseStyles = "font-primary font-medium tracking-tight";
-  
   const sizeStyles = {
-    1: "text-[clamp(3.25rem,7.5vw,8.5rem)] leading-[0.9]",
-    2: "text-[clamp(2.4rem,5vw,6rem)] leading-[0.95]",
-    3: "text-4xl md:text-5xl leading-tight",
-    4: "text-2xl md:text-3xl leading-snug",
-    5: "text-xl md:text-2xl",
-    6: "text-lg md:text-xl",
+    1: "type-hero",
+    2: "type-display",
+    3: "type-card-title",
+    4: "type-subtitle",
+    5: "type-body-large",
+    6: "type-body",
   };
 
   return (
     <Component
-      className={cn(baseStyles, sizeStyles[level], className)}
+      className={cn(sizeStyles[level], className)}
       {...props}
     >
       {children}

@@ -37,7 +37,7 @@ export default function Treatments() {
   return (
     <Section className="bg-white">
       <div className="max-w-[1600px] mx-auto">
-        <Heading level={2} className="mb-16">Care Designed Around You.</Heading>
+        <Heading level={2} className="mb-12 lg:mb-16">Care Designed Around You.</Heading>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
           {services.map((service, index) => (
@@ -54,9 +54,9 @@ export default function Treatments() {
                 className="object-cover transition-transform duration-1000 group-hover:scale-105" 
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-12">
-                <div className="transform transition-transform duration-500 group-hover:-translate-y-4">
-                  <Heading level={3} className="text-warm mb-3">{service.title}</Heading>
-                  <p className="text-warm/80 font-secondary text-lg mb-6">{service.desc}</p>
+                <div className="transform transition-transform duration-500 group-hover:-translate-y-4 flex flex-col justify-end">
+                  <Heading level={3} className="text-warm mb-3 min-h-[2.24em] flex items-end">{service.title}</Heading>
+                  <p className="text-warm/80 type-body mb-6">{service.desc}</p>
                   
                   <div className="inline-flex items-center text-warm font-secondary font-medium tracking-wide">
                     <span>View Treatment</span>
