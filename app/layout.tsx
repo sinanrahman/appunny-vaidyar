@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/animations/SmoothScroll";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import FloatingWhatsApp from "@/components/ui/FloatingWhatsApp";
 
 // TODO: Load TT Firs Neue local fonts when supplied by the client. Using Manrope as fallback.
 
@@ -41,6 +42,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </SmoothScroll>
+        <FloatingWhatsApp />
       </body>
     </html>
   );

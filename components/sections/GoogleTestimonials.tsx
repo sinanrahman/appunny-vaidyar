@@ -49,7 +49,7 @@ export default function GoogleReviews() {
       try {
         const res = await fetch("/api/google-reviews");
         const json = await res.json();
-        
+
         if (!res.ok || json.error) {
           setError(true);
         } else {
@@ -76,8 +76,8 @@ export default function GoogleReviews() {
     }
   };
 
-  // Default clinic maps link if API fails
-  const fallbackMapsLink = "https://www.google.com/maps/search/?api=1&query=Appunni+Vaidyar+Parvathy+Ayurjeeva+Panchakarma+Chikitsalaya+Bangalore";
+  // Default clinic maps link
+  const clinicMapsLink = "https://maps.app.goo.gl/nhqMWwuahcfDHihF9?g_st=iw";
 
   if (loading) {
     return (
@@ -97,7 +97,7 @@ export default function GoogleReviews() {
         <p className="type-body text-black/70 mb-6 md:mb-8 max-w-[580px]">
           Read authentic experiences and reviews from our patients directly on Google Maps.
         </p>
-        <Button href={data?.googleMapsUri || fallbackMapsLink} external variant="outline" className="border-black/20">
+        <Button href={clinicMapsLink} external variant="outline" className="border-black/20">
           View on Google Maps
         </Button>
       </Section>
@@ -109,9 +109,9 @@ export default function GoogleReviews() {
       <div className="max-w-[1600px] mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6">
           <Heading level={3} as="h2">What Our Patients Share</Heading>
-          
+
           <div className="flex gap-4 items-center">
-            <button 
+            <button
               onClick={prevSlide}
               disabled={currentIndex === 0}
               className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center disabled:opacity-30 hover:bg-black/5 transition-colors"
@@ -119,7 +119,7 @@ export default function GoogleReviews() {
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <button 
+            <button
               onClick={nextSlide}
               disabled={currentIndex >= Math.max(0, data.reviews.length - itemsPerPage)}
               className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center disabled:opacity-30 hover:bg-black/5 transition-colors"
@@ -131,15 +131,15 @@ export default function GoogleReviews() {
         </div>
 
         <div className="overflow-hidden mb-12">
-          <div 
+          <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ 
-              transform: `translateX(calc(-${currentIndex * 100}% - ${currentIndex * (itemsPerPage === 3 ? 2 : 1)}rem))` 
+            style={{
+              transform: `translateX(calc(-${currentIndex * 100}% - ${currentIndex * (itemsPerPage === 3 ? 2 : 1)}rem))`
             }}
           >
             {data.reviews.map((review, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="w-full md:w-[calc(33.333%-1.33rem)] shrink-0 bg-white p-8 rounded-2xl shadow-sm border border-black/5 flex flex-col justify-between"
                 style={{ marginRight: '2rem' }}
               >
@@ -163,7 +163,7 @@ export default function GoogleReviews() {
                       </span>
                     </div>
                   </div>
-                  
+
                   <div className="flex gap-1 mb-4">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className={cn("w-4 h-4", i < review.rating ? "fill-yellow-400 text-yellow-400" : "fill-gray-200 text-gray-200")} />
@@ -180,7 +180,7 @@ export default function GoogleReviews() {
                     <Image src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google" width={16} height={16} />
                     <span className="font-secondary text-xs text-black/50 font-medium">Google Reviews</span>
                   </div>
-                  <a href={data.googleMapsUri} target="_blank" rel="noopener noreferrer" className="font-secondary text-xs text-primary hover:underline flex items-center gap-1">
+                  <a href={clinicMapsLink} target="_blank" rel="noopener noreferrer" className="font-secondary text-xs text-primary hover:underline flex items-center gap-1">
                     <MapPin className="w-3 h-3" />
                     View on map
                   </a>
@@ -194,7 +194,7 @@ export default function GoogleReviews() {
           <p className="font-secondary text-xs md:text-sm text-black/50 max-w-3xl">
             Reviews are provided by Google Maps and are ordered by relevance. Google checks for and removes fake content when identified, but reviews are not individually verified.
           </p>
-          <Button href={data.googleMapsUri} external variant="primary" className="shrink-0">
+          <Button href={clinicMapsLink} external variant="primary" className="shrink-0">
             Read all reviews on Google Maps
           </Button>
         </div>

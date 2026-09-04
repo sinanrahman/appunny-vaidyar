@@ -15,22 +15,22 @@ const features = [
   {
     title: "Personal Consultation",
     desc: "Care begins with listening and understanding the individual.",
-    img: "/images/07_brand_poster_ayurveda.png",
+    img: "/images/personal-consultation.png",
   },
   {
     title: "Traditional Panchakarma",
     desc: "Therapies grounded in authentic Ayurvedic knowledge and practice.",
-    img: "/images/05_brand_poster_wellness.png",
+    img: "/images/panchakarma-square.png",
   },
   {
     title: "Natural Preparations",
     desc: "Herbs, oils and traditional methods selected with care.",
-    img: "/images/06_brand_poster_herbs.png",
+    img: "/images/preparations-square.png",
   },
   {
     title: "Compassionate Follow-up",
     desc: "Guidance that supports balance beyond the treatment room.",
-    img: "/images/12_treatment_room_mockup.png",
+    img: "/images/follow-up-square.png",
   },
 ];
 

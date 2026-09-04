@@ -1,0 +1,42 @@
+.galleryHeading {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  padding: 0 clamp(24px, 4vw, 72px) clamp(20px, 2vw, 32px);
+}
+
+.galleryHeading h2 {
+  max-width: 1000px;
+  margin: 0;
+  font-size: clamp(3rem, 5vw, 4rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+  font-family: var(--font-primary), serif;
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .galleryHeading {
+    padding: 0 32px 24px;
+  }
+  .galleryHeading h2 {
+    max-width: 760px;
+    font-size: clamp(2.25rem, 5vw, 3rem);
+    line-height: 1;
+  }
+}
+
+@media (max-width: 767px) {
+  .galleryHeading {
+    padding: 0 20px 16px;
+  }
+  .galleryHeading h2 {
+    max-width: 100%;
+    font-size: clamp(2rem, 9vw, 2.75rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+}

@@ -109,13 +109,13 @@
 
 @media (max-width: 899px) {
   .navbar {
-    grid-template-columns: 1fr auto;
+    display: flex;
+    justify-content: space-between;
     height: 68px;
     padding: 0 18px;
   }
 
   .navBrand {
-    justify-self: start;
     padding: 0;
     background: transparent;
   }
@@ -125,7 +125,6 @@
   }
 
   .menuTrigger {
-    justify-self: end;
     font-size: 11px;
   }
 

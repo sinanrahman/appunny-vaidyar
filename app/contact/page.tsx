@@ -1,1 +1,14 @@
-export default function ContactPage() { return <div className="pt-32 px-[clamp(20px,4vw,72px)] text-center pb-32"><h1>Contact - Coming Soon</h1></div>; }
+import ConsultationCTA from "@/components/sections/ConsultationCTA";
+
+export const metadata = {
+  title: "Contact | Appunni Vaidyar Parvathy",
+  description: "Begin your healing journey. Contact our care team or request an appointment today.",
+};
+
+export default function ContactPage() { 
+  return (
+    <main className="min-h-screen">
+      <ConsultationCTA />
+    </main>
+  ); 
+}

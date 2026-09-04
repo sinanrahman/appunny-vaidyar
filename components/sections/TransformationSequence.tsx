@@ -63,7 +63,7 @@ export default function TransformationSequence() {
   if (reducedMotion) {
     return (
       <section className="relative w-full py-32 bg-primary text-warm flex flex-col items-center justify-center gap-12">
-        <Image src="/images/10_product_packaging_mockup.png" alt="Ayurvedic Preparation" width={600} height={400} className="object-cover rounded-2xl opacity-60" />
+        <Image src="/images/background-section.png" alt="Ayurvedic Preparation" width={600} height={400} className="object-cover rounded-2xl opacity-60" />
         <div className="relative z-10 text-center max-w-4xl px-6">
           <Heading level={2} className="mb-6 max-w-[900px] w-full mx-auto text-center">Understand the individual.</Heading>
           <Heading level={2} className="mb-6 text-warm/70 max-w-[900px] w-full mx-auto text-center">Restore the natural rhythm.</Heading>
@@ -80,7 +80,7 @@ export default function TransformationSequence() {
         {/* Ambient background visuals */}
         <div className="absolute inset-0 z-0 opacity-20 mix-blend-overlay">
           <Image 
-            src="/images/10_product_packaging_mockup.png" 
+            src="/images/background-section.png" 
             alt="Ayurvedic Preparation" 
             fill
             sizes="100vw"

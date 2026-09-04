@@ -60,7 +60,7 @@ export default function ApproachStone({ approachRef }: ApproachStoneProps) {
             y: 24,
           },
           {
-            opacity: 0.5,
+            opacity: 0.3,
             scale: 1,
             y: 0,
             duration: 0.12,
@@ -69,7 +69,7 @@ export default function ApproachStone({ approachRef }: ApproachStoneProps) {
         )
         .to(stoneRef.current, {
           y: () => calculateApproachTravel(),
-          opacity: 0.5,
+          opacity: 0.3,
           scale: 1,
           rotation: 2,
           duration: 0.88,

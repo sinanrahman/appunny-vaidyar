@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import NavigationOverlay from "./NavigationOverlay";
 import styles from "./Header.module.css";
@@ -38,8 +39,13 @@ function AyurvedicMenuIcon({ className = "" }: { className?: string }) {
 }
 
 export default function Header() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Pages that have a dark background at the top, requiring white text initially
+  const hasDarkHero = pathname === "/" || pathname === "/about" || pathname === "/contact";
+  const shouldBeDarkText = !hasDarkHero || isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,7 +61,7 @@ export default function Header() {
       <header
         className={cn(
           styles.navbar,
-          isScrolled && styles.navbarScrolled
+          shouldBeDarkText && styles.navbarScrolled
         )}
       >
         <button
@@ -78,7 +84,7 @@ export default function Header() {
             height={102}
             priority
             className={styles.navLogo}
-            style={{ filter: !isScrolled ? "brightness(0) invert(1)" : "none" }}
+            style={{ filter: !shouldBeDarkText ? "brightness(0) invert(1)" : "none" }}
           />
         </Link>
 

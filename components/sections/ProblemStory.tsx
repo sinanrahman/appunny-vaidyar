@@ -49,7 +49,7 @@ export default function ProblemStory() {
         {/* Supporting Masked Image */}
         <div className="md:col-span-5 md:col-start-1 relative w-full aspect-[4/5] md:aspect-square overflow-hidden rounded-2xl md:rounded-[40px] opacity-90">
           <Image 
-            src="/images/11_business_card_mockup.png" 
+            src="/images/modern.png" 
             alt="Nature element representing imbalance" 
             fill 
             sizes="(max-width: 768px) 100vw, 50vw" 

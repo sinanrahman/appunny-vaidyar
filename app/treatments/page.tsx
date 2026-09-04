@@ -1,1 +1,14 @@
-export default function TreatmentsPage() { return <div className="pt-32 px-[clamp(20px,4vw,72px)] text-center pb-32"><h1>Treatments - Coming Soon</h1></div>; }
+import Treatments from "@/components/sections/Treatments";
+
+export const metadata = {
+  title: "Treatments | Appunni Vaidyar Parvathy",
+  description: "Care designed around you. Authentic detoxification and purification therapies to restore balance.",
+};
+
+export default function TreatmentsPage() { 
+  return (
+    <main className="min-h-screen pt-[100px] bg-warm">
+      <Treatments />
+    </main>
+  ); 
+}

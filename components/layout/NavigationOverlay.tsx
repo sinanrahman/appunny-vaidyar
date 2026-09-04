@@ -15,10 +15,8 @@ interface NavigationOverlayProps {
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Our Approach", href: "/approach" },
   { label: "Treatments", href: "/treatments" },
-  { label: "Practitioner", href: "/practitioner" },
-  { label: "Journal", href: "/journal" },
+  { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
 

@@ -56,9 +56,14 @@ export default function ConsultationCTA() {
             
             <div>
               <h4 className="type-label mb-4 text-warm/70">Clinic Address</h4>
-              <p className="font-secondary text-[clamp(17px,2vw,20px)] leading-relaxed max-w-sm">
+              <a 
+                href="https://maps.app.goo.gl/nhqMWwuahcfDHihF9?g_st=iw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block font-secondary text-[clamp(17px,2vw,20px)] leading-relaxed max-w-sm hover:text-warm/80 transition-colors"
+              >
                 No. 251, Sri Sai Nivas, Ground Floor, 1st Main Road, Vidyanagara, T. Dasarahalli, Bangalore, Karnataka 560057, India
-              </p>
+              </a>
             </div>
           </div>
         </div>

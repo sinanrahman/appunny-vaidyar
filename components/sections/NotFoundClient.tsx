@@ -5,8 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "gsap";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
+
 import styles from "@/app/not-found.module.css";
 
 export default function NotFound() {
@@ -17,15 +16,15 @@ export default function NotFound() {
   const descRef = useRef<HTMLParagraphElement>(null);
   const buttonRef = useRef<HTMLAnchorElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);
-  
+
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (reducedMotion) {
       // For reduced motion, ensure elements are immediately visible
       gsap.set([
-        leftDigitRef.current, 
-        rightDigitRef.current, 
+        leftDigitRef.current,
+        rightDigitRef.current,
         logoWrapperRef.current,
         titleRef.current,
         descRef.current,
@@ -55,31 +54,31 @@ export default function NotFound() {
         duration,
         ease,
       }, 0)
-      .to(logoWrapperRef.current, {
-        opacity: 1,
-        scale: 1,
-        rotation: 0,
-        duration,
-        ease,
-      }, 0)
-      .to(titleRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease,
-      }, 0.38)
-      .to(descRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease,
-      }, 0.48)
-      .to(buttonRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease,
-      }, 0.6);
+        .to(logoWrapperRef.current, {
+          opacity: 1,
+          scale: 1,
+          rotation: 0,
+          duration,
+          ease,
+        }, 0)
+        .to(titleRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease,
+        }, 0.38)
+        .to(descRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease,
+        }, 0.48)
+        .to(buttonRef.current, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease,
+        }, 0.6);
 
       // Subtle floating logo
       gsap.to(logoWrapperRef.current, {
@@ -99,14 +98,14 @@ export default function NotFound() {
 
   useEffect(() => {
     if (reducedMotion || !pageRef.current || !logoWrapperRef.current) return;
-    
+
     // Check if device supports hover (desktop)
     const isTouchDevice = (("ontouchstart" in window) || (navigator.maxTouchPoints > 0));
     if (isTouchDevice) return;
 
-    let xTo = gsap.quickTo(logoWrapperRef.current, "x", { duration: 0.6, ease: "power3" });
-    let yTo = gsap.quickTo(logoWrapperRef.current, "y", { duration: 0.6, ease: "power3" });
-    let rotTo = gsap.quickTo(logoWrapperRef.current, "rotation", { duration: 0.6, ease: "power3" });
+    const xTo = gsap.quickTo(logoWrapperRef.current, "x", { duration: 0.6, ease: "power3" });
+    const yTo = gsap.quickTo(logoWrapperRef.current, "y", { duration: 0.6, ease: "power3" });
+    const rotTo = gsap.quickTo(logoWrapperRef.current, "rotation", { duration: 0.6, ease: "power3" });
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = pageRef.current!.getBoundingClientRect();
@@ -126,21 +125,18 @@ export default function NotFound() {
       rotTo(0);
     };
 
-    pageRef.current.addEventListener("mousemove", handleMouseMove);
-    pageRef.current.addEventListener("mouseleave", handleMouseLeave);
+    const node = pageRef.current;
+    node.addEventListener("mousemove", handleMouseMove);
+    node.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
-      if (pageRef.current) {
-        pageRef.current.removeEventListener("mousemove", handleMouseMove);
-        pageRef.current.removeEventListener("mouseleave", handleMouseLeave);
-      }
+      node.removeEventListener("mousemove", handleMouseMove);
+      node.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [reducedMotion]);
 
   return (
     <div ref={pageRef} className={styles.notFoundPage}>
-      <Header />
-      
       <main className={styles.notFoundMain}>
         <div className={styles.notFoundContent}>
           <div className={styles.errorCode} aria-label="Error 404">
@@ -161,7 +157,7 @@ export default function NotFound() {
           </div>
 
           <h1 ref={titleRef} className={styles.title}>Page not found</h1>
-          
+
           <p ref={descRef} className={styles.description}>
             This path may be lost, but your journey towards balance can continue. Return home to explore authentic Ayurvedic care.
           </p>
@@ -173,8 +169,6 @@ export default function NotFound() {
           </Link>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 }

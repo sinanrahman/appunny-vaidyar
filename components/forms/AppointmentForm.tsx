@@ -37,7 +37,7 @@ export default function AppointmentForm() {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     setSubmitStatus("idle");
-    
+
     try {
       const response = await fetch("/api/appointments", {
         method: "POST",
@@ -46,7 +46,7 @@ export default function AppointmentForm() {
       });
 
       if (!response.ok) throw new Error("Failed to submit");
-      
+
       setSubmitStatus("success");
       reset();
     } catch {
@@ -68,7 +68,7 @@ export default function AppointmentForm() {
         <p className="font-secondary text-black/70">
           Thank you for reaching out. Our care team will contact you shortly to confirm your consultation.
         </p>
-        <button 
+        <button
           onClick={() => setSubmitStatus("idle")}
           className="mt-8 text-primary hover:underline font-secondary font-medium"
         >
@@ -82,9 +82,9 @@ export default function AppointmentForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
         <label htmlFor="name" className="font-secondary text-sm font-medium text-black/80">Full Name</label>
-        <input 
+        <input
           id="name"
-          {...register("name")} 
+          {...register("name")}
           className={cn(
             "h-12 px-4 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow",
             errors.name ? "border-red-500" : "border-black/10"
@@ -95,10 +95,10 @@ export default function AppointmentForm() {
 
       <div className="flex flex-col gap-1">
         <label htmlFor="phone" className="font-secondary text-sm font-medium text-black/80">Phone / WhatsApp</label>
-        <input 
+        <input
           id="phone"
           type="tel"
-          {...register("phone")} 
+          {...register("phone")}
           className={cn(
             "h-12 px-4 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow",
             errors.phone ? "border-red-500" : "border-black/10"
@@ -109,10 +109,10 @@ export default function AppointmentForm() {
 
       <div className="flex flex-col gap-1">
         <label htmlFor="email" className="font-secondary text-sm font-medium text-black/80">Email (Optional)</label>
-        <input 
+        <input
           id="email"
           type="email"
-          {...register("email")} 
+          {...register("email")}
           className={cn(
             "h-12 px-4 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow",
             errors.email ? "border-red-500" : "border-black/10"
@@ -124,10 +124,10 @@ export default function AppointmentForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div className="flex flex-col gap-1">
           <label htmlFor="date" className="font-secondary text-sm font-medium text-black/80">Preferred Date</label>
-          <input 
+          <input
             id="date"
             type="date"
-            {...register("date")} 
+            {...register("date")}
             className={cn(
               "h-12 px-4 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow",
               errors.date ? "border-red-500" : "border-black/10"
@@ -138,9 +138,9 @@ export default function AppointmentForm() {
 
         <div className="flex flex-col gap-1">
           <label htmlFor="language" className="font-secondary text-sm font-medium text-black/80">Preferred Language</label>
-          <select 
+          <select
             id="language"
-            {...register("language")} 
+            {...register("language")}
             className="h-12 px-4 rounded-lg border border-black/10 bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
           >
             <option value="English">English</option>
@@ -153,9 +153,9 @@ export default function AppointmentForm() {
 
       <div className="flex flex-col gap-1">
         <label htmlFor="concern" className="font-secondary text-sm font-medium text-black/80">Primary Concern</label>
-        <textarea 
+        <textarea
           id="concern"
-          {...register("concern")} 
+          {...register("concern")}
           rows={3}
           className={cn(
             "p-4 rounded-lg border bg-white focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow resize-none",
@@ -168,7 +168,7 @@ export default function AppointmentForm() {
       </div>
 
       <div className="flex items-start gap-3 mt-2">
-        <input 
+        <input
           id="consent"
           type="checkbox"
           {...register("consent")}
@@ -186,7 +186,7 @@ export default function AppointmentForm() {
         </div>
       )}
 
-      <button 
+      <button
         type="submit"
         disabled={isSubmitting}
         className="mt-4 w-full h-14 rounded-full bg-primary text-warm font-secondary font-medium hover:bg-black transition-colors disabled:opacity-70 flex items-center justify-center"
