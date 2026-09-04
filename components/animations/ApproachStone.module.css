@@ -1,0 +1,52 @@
+.approachSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.approachContent {
+  position: relative;
+  z-index: 2;
+}
+
+.approachContent h2,
+.approachContent h4,
+.approachContent p,
+.approachContent img {
+  position: relative;
+  z-index: 2;
+}
+
+.followUpContent {
+  position: relative;
+  padding-bottom: clamp(130px, 12vw, 190px);
+}
+
+.approachStoneLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.approachStone {
+  position: absolute;
+  left: clamp(70px, 8vw, 150px);
+  top: 0;
+  width: clamp(135px, 13vw, 230px);
+  height: auto;
+  opacity: 0;
+  transform-origin: center;
+  will-change: transform, opacity;
+  pointer-events: none;
+  user-select: none;
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+@media (max-width: 767px) {
+  .approachStone {
+    left: 18px;
+    width: clamp(90px, 26vw, 130px);
+  }
+}

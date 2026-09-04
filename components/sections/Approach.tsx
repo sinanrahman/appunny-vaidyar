@@ -6,6 +6,8 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Section from "../ui/Section";
 import Heading from "../ui/Heading";
+import ApproachStone from "../animations/ApproachStone";
+import styles from "../animations/ApproachStone.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -76,8 +78,10 @@ export default function Approach() {
   }, []);
 
   return (
-    <Section ref={containerRef} className="relative !py-0 w-full max-w-[1600px] mx-auto">
-      <div className="flex flex-col md:flex-row w-full h-full relative">
+    <Section ref={containerRef} className={`relative !py-0 w-full max-w-[1600px] mx-auto ${styles.approachSection}`}>
+      <ApproachStone approachRef={containerRef} />
+      
+      <div className={`flex flex-col md:flex-row w-full h-full relative ${styles.approachContent}`}>
         
         {/* Left Column - Sticky on Desktop */}
         <div 
@@ -107,7 +111,7 @@ export default function Approach() {
                   className="object-cover transition-transform duration-1000 group-hover:scale-105" 
                 />
               </div>
-              <div>
+              <div className={index === 3 ? styles.followUpContent : ""}>
                 <Heading level={4} className="mb-2">{feature.title}</Heading>
                 <p className="font-secondary text-black/70 text-lg">{feature.desc}</p>
               </div>

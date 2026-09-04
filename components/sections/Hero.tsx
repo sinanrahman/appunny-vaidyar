@@ -5,6 +5,7 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Button from "../ui/Button";
+import HeroStone from "../animations/HeroStone";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -60,6 +61,7 @@ export default function Hero() {
       ref={containerRef} 
       className="relative w-full h-[100svh] min-h-[700px] flex items-center pb-20 pt-32 overflow-hidden bg-black text-warm"
     >
+      <HeroStone heroRef={containerRef} />
       <div className="absolute inset-0 z-0">
         <Image
           ref={imageRef}
