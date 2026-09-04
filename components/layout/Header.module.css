@@ -1,0 +1,187 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 78px;
+  padding: 12px clamp(22px, 4vw, 72px);
+  background: transparent;
+  transition: background-color 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.navbarScrolled {
+  background: rgba(246, 243, 231, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.navLogoImage {
+  display: block;
+  width: clamp(165px, 13vw, 225px);
+  height: auto;
+  object-fit: contain;
+  transition: filter 0.35s ease;
+}
+
+.logoLight {
+  filter: brightness(0) invert(1);
+}
+
+.logoPlate {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 14px;
+  background: transparent;
+  transition: background-color 0.35s ease, backdrop-filter 0.35s ease;
+}
+
+.logoPlateScrolled {
+  background: rgba(246, 243, 231, 0.94);
+  backdrop-filter: blur(8px);
+}
+
+.menuDrawer {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 50vw;
+  max-width: 960px;
+  min-width: 560px;
+  height: 100dvh;
+  z-index: 200;
+  overflow: hidden;
+  transform: translate3d(-100%, 0, 0);
+  will-change: transform;
+  transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+.menuDrawer[data-open="true"] {
+  transform: translate3d(0, 0, 0);
+}
+
+.drawerBackground {
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.drawerOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(2, 15, 10, 0.32),
+      rgba(2, 20, 13, 0.58)
+    );
+}
+
+.drawerHeader {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: clamp(20px, 3vw, 48px);
+}
+
+.drawerNavigation {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(10px, 1.5vh, 22px);
+  height: calc(100dvh - 150px);
+  padding:
+    clamp(18px, 3vw, 48px)
+    clamp(30px, 7vw, 112px)
+    clamp(40px, 6vh, 80px);
+}
+
+.drawerLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.15em;
+  color: #f3f0e4;
+  font-size: clamp(32px, 3.25vw, 62px);
+  font-weight: 450;
+  line-height: 1;
+  letter-spacing: -0.035em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.menuBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  background: rgba(1, 8, 5, 0.52);
+  backdrop-filter: blur(4px);
+}
+
+@media (max-width: 900px) {
+  .menuDrawer {
+    width: 100vw;
+    min-width: 0;
+    max-width: none;
+  }
+  .menuBackdrop {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .navLogoImage {
+    width: clamp(142px, 42vw, 180px);
+  }
+
+  .navbar {
+    grid-template-columns: 1fr auto;
+    min-height: 82px;
+    padding: 12px 16px;
+  }
+
+  .menuTrigger {
+    justify-self: end;
+  }
+
+  .consultationButton {
+    display: none;
+  }
+
+  .drawerNavigation {
+    justify-content: flex-start;
+    gap: 14px;
+    height: auto;
+    padding: 72px 28px 40px;
+  }
+
+  .drawerLink {
+    font-size: clamp(34px, 11vw, 52px);
+    line-height: 1.05;
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menuDrawer {
+    transition: opacity 0.3s ease !important;
+  }
+  .menuDrawer:not([data-open="true"]) {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate3d(0, 0, 0) !important;
+  }
+}

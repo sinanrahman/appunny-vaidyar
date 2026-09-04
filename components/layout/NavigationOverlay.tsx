@@ -5,6 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { gsap } from "gsap";
 import { cn } from "@/lib/utils";
+import styles from "./Header.module.css";
+import { usePathname } from "next/navigation";
 
 interface NavigationOverlayProps {
   isOpen: boolean;
@@ -12,41 +14,9 @@ interface NavigationOverlayProps {
 }
 
 export default function NavigationOverlay({ isOpen, onClose }: NavigationOverlayProps) {
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
   const linksRef = useRef<HTMLUListElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!overlayRef.current || !linksRef.current || !bgRef.current) return;
-
-    const links = linksRef.current.querySelectorAll("li");
-
-    if (isOpen) {
-      gsap.to(overlayRef.current, {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        duration: 0.8,
-        ease: "power3.inOut",
-      });
-
-      gsap.fromTo(
-        bgRef.current,
-        { scale: 1.1, opacity: 0 },
-        { scale: 1, opacity: 0.2, duration: 1.2, ease: "power2.out", delay: 0.2 }
-      );
-
-      gsap.fromTo(
-        links,
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out", delay: 0.4 }
-      );
-    } else {
-      gsap.to(overlayRef.current, {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
-        duration: 0.6,
-        ease: "power3.inOut",
-      });
-    }
-  }, [isOpen]);
+  const pathname = usePathname();
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -57,61 +27,137 @@ export default function NavigationOverlay({ isOpen, onClose }: NavigationOverlay
     { label: "Contact", href: "/contact" },
   ];
 
-  return (
-    <div
-      ref={overlayRef}
-      className={cn(
-        "fixed inset-0 z-40 bg-primary text-warm flex items-center pt-24",
-        !isOpen && "pointer-events-none"
-      )}
-      style={{ clipPath: "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)" }}
-    >
-      <div 
-        ref={bgRef} 
-        className="absolute inset-0 z-0 opacity-20 pointer-events-none"
-      >
-        <Image 
-          src="/images/06_brand_poster_herbs.png" 
-          alt="Herbs" 
-          fill
-          sizes="100vw"
-          className="object-cover"
-        />
-      </div>
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-[clamp(20px,4vw,72px)] grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
-          <ul ref={linksRef} className="flex flex-col gap-4">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link 
-                  href={link.href}
-                  onClick={onClose}
-                  className="font-primary text-5xl md:text-7xl lg:text-[6rem] leading-none tracking-tight hover:opacity-70 transition-opacity"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
+  useEffect(() => {
+    if (isOpen) {
+      const closeBtn = drawerRef.current?.querySelector('button');
+      if (closeBtn) {
+        setTimeout(() => closeBtn.focus(), 50);
+      }
+    } else {
+      const menuTrigger = document.querySelector(`.${styles.menuTrigger} button`) as HTMLButtonElement | null;
+      if (menuTrigger) {
+        menuTrigger.focus();
+      }
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!linksRef.current) return;
+
+    const links = linksRef.current.querySelectorAll("li a");
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (isOpen) {
+      if (!prefersReducedMotion) {
+        gsap.fromTo(
+          links,
+          { opacity: 0, x: -32 },
+          { 
+            opacity: 1, 
+            x: 0, 
+            duration: 0.5, 
+            stagger: 0.065, 
+            ease: "power3.out",
+            delay: 0.2
+          }
+        );
+      } else {
+        gsap.set(links, { opacity: 1, x: 0 });
+      }
+    }
+  }, [isOpen]);
+
+  return (
+    <>
+      {isOpen && (
+        <div 
+          className={styles.menuBackdrop} 
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+
+      <div
+        ref={drawerRef}
+        id="navigation-drawer"
+        className={styles.menuDrawer}
+        data-open={isOpen}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation Menu"
+      >
+        <Image
+          src="/images/appunni-navbar-drawer-background.png"
+          alt=""
+          fill
+          priority={false}
+          sizes="(max-width: 900px) 100vw, 50vw"
+          className={styles.drawerBackground}
+        />
         
-        <div className="flex flex-col justify-end pb-12 gap-8">
-          <div>
-            <h4 className="font-secondary font-medium uppercase tracking-widest text-sm mb-4 opacity-70">Contact</h4>
-            <div className="flex flex-col gap-2 font-secondary text-lg">
-              <a href="tel:+919448039840" className="hover:opacity-70 transition-opacity">+91 94480 39840</a>
-              <a href="https://wa.me/919448039840" target="_blank" rel="noopener noreferrer" className="hover:opacity-70 transition-opacity">WhatsApp Chat</a>
-            </div>
-          </div>
-          <div>
-            <h4 className="font-secondary font-medium uppercase tracking-widest text-sm mb-4 opacity-70">Location</h4>
-            <p className="font-secondary text-lg max-w-sm">
-              No. 251, Sri Sai Nivas, Ground Floor, 1st Main Road, Vidyanagara, T. Dasarahalli, Bangalore, Karnataka 560057
-            </p>
-          </div>
+        <div className={styles.drawerOverlay} />
+
+        <div className={styles.drawerHeader}>
+          <Image
+            src="/images/03_secondary_logo.png"
+            alt="Appunni Vaidyar Parvathy"
+            width={160}
+            height={63}
+            className="w-32 md:w-40 h-auto relative z-10"
+          />
+          <button 
+            onClick={onClose}
+            className="w-[44px] h-[44px] flex items-center justify-center text-[#f3f0e4] hover:opacity-70 transition-opacity relative z-10"
+            aria-label="Close menu"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
+
+        <nav>
+          <ul ref={linksRef} className={styles.drawerNavigation}>
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <li key={link.href}>
+                  <Link 
+                    href={link.href}
+                    onClick={onClose}
+                    className={styles.drawerLink}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
-    </div>
+    </>
   );
 }
